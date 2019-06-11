@@ -4,6 +4,19 @@
     box-sizing: border-box;
 }
 
+.game-board {
+    width: 600px;
+    height: 600px;
+}
+
+.card {
+    width: 16.666%;
+}
+
+.card img {
+    width: 100px;
+}
+
 .card-front,
 .card-back {
     padding: 20px;
