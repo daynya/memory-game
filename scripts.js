@@ -1,30 +1,33 @@
 const cards = document.querySelectorAll('.card');
 
-let hasFlippedCard = false;
+let secondFlip = false;
 let lockBoard = false;
 let firstCard, secondCard;
 
 function flipCard() {
+    //if the cards are flipping back over, don't allow another click 
     if (lockBoard) return;
+
+    //if the first card is clicked again, don't do anything
     if (this === firstCard) return; 
-    //if a card is clicked twice, it will remove the event listener. 
-    //the this variable holds the first card, but the firstCard variable remains unset due to double click.
-    //if it is the second card, and it matches the first card, then it will return from the function.
+
+    //if neither of the above are true, flip card over
     this.classList.add('flip');
 
-    if (!hasFlippedCard) {
-        //if hasFlippedCard is false, this is the first click
-        hasFlippedCard = true;
+    //if a card hasn't already been turned over, this is first turn
+    if (!secondFlip) {
+        //since this is the first card flipped, update game state
+        //so that the next card will be the second card flipped
+        secondFlip = true;
+        //update game state to record card flipped as first card
         firstCard = this;
 
-        return;
-    } 
-    
-        //if hasFlippedCard is true, this is the second click
-        hasFlippedCard = false;
+    } else {
+        //if it's not the first card flipped, record as second card flipped
         secondCard = this;
-
+        
         checkForMatch();
+    }
 }
 
 function checkForMatch() {
@@ -33,6 +36,7 @@ function checkForMatch() {
     let isMatch = firstCard.dataset.animal === secondCard.dataset.animal;
 
     isMatch ? disableCards() : unflipCards();
+    console.log(isMatch);
 }
 
     //if the datasets do not match, flip cards back to original state
@@ -55,7 +59,7 @@ function unflipCards() {
 }
 
 function resetBoard() {
-    [hasFlippedCard, lockBoard] = [false, false];
+    [secondFlip, lockBoard] = [false, false];
     [firstCard, secondCard] = [null, null];
 
 }
