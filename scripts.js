@@ -54,7 +54,7 @@ function checkForWin() {
         } else if (scores[0] < scores[1]) {
             document.querySelector('.winner').textContent = 'Red Player is victorious!';
         } else {
-            document.querySelector('.winner').textContent = "It is a tie. Try again!";
+            document.querySelector('.winner').textContent = 'It is a tie. Try again!';
         }
     }
 }
@@ -68,11 +68,13 @@ function nextPlayer() {
     if (activePlayer === 0) {
         activePlayer = 1;
         document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+
     } else {
         activePlayer = 0;
+        document.querySelector('.player-0-panel').classList.toggle('active');
         document.querySelector('.player-1-panel').classList.toggle('active');
     }
-    console.log(activePlayer);
 }
 
 //if the cards are a match, then remove the click listener and the flip card function
