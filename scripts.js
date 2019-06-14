@@ -3,6 +3,8 @@ const cards = document.querySelectorAll('.card');
 let secondFlip = false;
 let lockBoard = false;
 let firstCard, secondCard;
+let scores = [0,0];
+let activePlayer = 0;
 
 function flipCard() {
     //if the cards are flipping back over, don't allow another click 
@@ -25,8 +27,8 @@ function flipCard() {
     } else {
         //if it's not the first card flipped, record as second card flipped
         secondCard = this;
-        
         checkForMatch();
+        checkForWin();
     }
 }
 
@@ -35,42 +37,107 @@ function checkForMatch() {
     //if the dataset matches on both cards, remove event listener to prevent cards from being clicked again
     let isMatch = firstCard.dataset.animal === secondCard.dataset.animal;
 
-    isMatch ? disableCards() : unflipCards();
-    console.log(isMatch);
+    //if the cards match, keep them flipped, if they don't, flip back over
+    if (isMatch) {
+        disableCards(); 
+        updateScore();
+    } else {
+        unflipCards();
+        nextPlayer();
+    }
 }
 
-    //if the datasets do not match, flip cards back to original state
+function checkForWin() {
+    if (scores[0] + scores[1] == 6) {
+        if (scores[0] > scores[1]) {
+            document.querySelector('.winner').textContent = 'Blue Player is victorious!';
+        } else if (scores[0] < scores[1]) {
+            document.querySelector('.winner').textContent = 'Red Player is victorious!';
+        } else {
+            document.querySelector('.winner').textContent = "It is a tie. Try again!";
+        }
+    }
+}
+
+function updateScore() {
+    scores[activePlayer] = scores[activePlayer] + 1;
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+}
+
+function nextPlayer() {
+    if (activePlayer === 0) {
+        activePlayer = 1;
+        document.querySelector('.player-0-panel').classList.toggle('active');
+    } else {
+        activePlayer = 0;
+        document.querySelector('.player-1-panel').classList.toggle('active');
+    }
+    console.log(activePlayer);
+}
+
+//if the cards are a match, then remove the click listener and the flip card function
+//so that they can't be clicked again
 function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
 
-    resetBoard();
+    resetTurn();
 }
 
 function unflipCards() {
+    //prevents new cards from being clicked while current cards are flipping back over
     lockBoard = true;
 
+    //gives time to view cards that aren't a match before flipping back over
     setTimeout(() => {
         firstCard.classList.remove('flip');
         secondCard.classList.remove('flip');
 
-        resetBoard();
+        resetTurn();
     }, 1500);
 }
 
-function resetBoard() {
-    [secondFlip, lockBoard] = [false, false];
-    [firstCard, secondCard] = [null, null];
-
+//resets game state for next turn
+function resetTurn() {
+    secondFlip = false;
+    lockBoard = false;
+    firstCard = null;
+    secondCard = null;
 }
 
-(function shuffleCards() {
+function shuffleCards() {
     cards.forEach(card => {
         let randomPos = Math.floor(Math.random() * 12);
         //want to assign each card an integer between 0-11, use random to randomize, use floor to create integer from random number (order property needs integer)
         card.style.order = randomPos;
+        console.log(randomPos);
     });
-})();
-//Immediately invoked functon expression 
+}
 
-cards.forEach(card => card.addEventListener('click', flipCard));
+function resetGame() {
+    secondFlip = false;
+    lockBoard = false;
+    firstCard = null;
+    secondCard = null;
+    scores = [0,0];
+    activePlayer = 0;
+
+    cards.forEach(card => console.log(card));
+    cards.forEach(card => card.addEventListener('click', flipCard));
+    cards.forEach(card => card.classList.remove('flip'));
+
+    lockBoard = true;
+    setTimeout(() => {
+        shuffleCards();
+        lockBoard = false;
+    }, 1000);
+
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+}
+
+//Immediately invoked functon expression 
+(function startGame() {
+    resetGame();
+    document.getElementById('new-game').addEventListener('click', resetGame);
+})();
