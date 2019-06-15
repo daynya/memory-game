@@ -27,11 +27,11 @@ h1 {
 }
 
 #player-0 {
-    color: #2f4b77;
+    color: #044497;
 }
 
 #player-1 {
-    color: #841212;
+    color: red;
 }
 
 .player-0-panel.active,
@@ -74,10 +74,6 @@ h1 {
     border: 1px solid red;
 }
 
-.card-front {
-    height: 150.5px;
-}
-
 .card:active {
     transform: scale(.98);
 }
@@ -100,12 +96,13 @@ h1 {
 }
 
 .card-front {
+    height: 150.5px;
     background-color: red;
     color: white;
-}
-
-.card-front {
     transform: rotateY(180deg); 
 }
 
+.card-front.fas {
+    line-height: 1.3
+}
 
