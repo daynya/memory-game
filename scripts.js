@@ -35,20 +35,26 @@ function flipCard() {
 function checkForMatch() {
     //do the cards match?
     //if the dataset matches on both cards, remove event listener to prevent cards from being clicked again
-    let isMatch = firstCard.dataset.animal === secondCard.dataset.animal;
+    let isMatch = firstCard.dataset.icon === secondCard.dataset.icon;
 
     //if the cards match, keep them flipped, if they don't, flip back over
     if (isMatch) {
         disableCards(); 
         updateScore();
+        setTimeout(() => {
+            updateScoreboard();
+        }, 500);
     } else {
         unflipCards();
-        nextPlayer();
+        setTimeout(() => {
+            nextPlayer();
+        }, 1500);
     }
 }
 
 function checkForWin() {
-    if (scores[0] + scores[1] == 6) {
+    console.log(scores[0] + scores[1]);
+    if (scores[0] + scores[1] == 8) {
         if (scores[0] > scores[1]) {
             document.querySelector('.winner').textContent = 'Blue Player is victorious!';
         } else if (scores[0] < scores[1]) {
@@ -61,6 +67,9 @@ function checkForWin() {
 
 function updateScore() {
     scores[activePlayer] = scores[activePlayer] + 1;
+}
+
+function updateScoreboard() {
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 }
 
@@ -109,7 +118,7 @@ function resetTurn() {
 
 function shuffleCards() {
     cards.forEach(card => {
-        let randomPos = Math.floor(Math.random() * 12);
+        let randomPos = Math.floor(Math.random() * 16);
         //want to assign each card an integer between 0-11, use random to randomize, use floor to create integer from random number (order property needs integer)
         card.style.order = randomPos;
         console.log(randomPos);

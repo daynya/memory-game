@@ -5,11 +5,16 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Prata&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-        <title>Memory Game</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">        <title>Memory Game</title>
+        <script src="https://kit.fontawesome.com/ee5f2ca734.js"></script>
     </head>
     <body>
         <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>MEMORY GAME</h1>
+                </div>
+            </div>
             <div class="row player-panel">
                 <div class="col player-0-panel active">
                     <div class="player-name" id="player-0">BLUE PLAYER</div>
@@ -24,58 +29,76 @@
                 <div class="col">
                     <button id="new-game">NEW GAME</button>
                 </div>
+            </div>
+            <div class="row player-panel">
                 <div class="col">
                     <div class="winner"></div>
                 </div>
             </div>
 
-            <div class="game-board">
-                <div class="card" data-animal="cat">
-                    <img class="card-front" src="img/cat.jpg" alt="cat picture">
+            <div class="row game-board">
+                <div class="card" data-icon="cat">
+                    <i class="fas fa-cat fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="cat">
-                    <img class="card-front" src="img/cat.jpg" alt="cat picture">
+                <div class="card" data-icon="cat">
+                    <i class="fas fa-cat fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="dog">
-                    <img class="card-front" src="img/dog.jpg" alt="dog picture">
+                <div class="card" data-icon="glasses">
+                    <i class="fas fa-glasses fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="dog">
-                    <img class="card-front" src="img/dog.jpg" alt="dog picture">
+                <div class="card" data-icon="glasses">
+                    <i class="fas fa-glasses fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="betta">
-                    <img class="card-front" src="img/betta.jpg" alt="betta picture">
+                <div class="card" data-icon="cloud-moon">
+                    <i class="fas fa-cloud-moon fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="betta">
-                    <img class="card-front" src="img/betta.jpg" alt="betta picture">
+                <div class="card" data-icon="cloud-moon">
+                    <i class="fas fa-cloud-moon fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="snake">
-                    <img class="card-front" src="img/snake.jpg" alt="snake picture">
+                <div class="card" data-icon="lightbulb">
+                    <i class="fas fa-lightbulb fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="snake">
-                    <img class="card-front" src="img/snake.jpg" alt="snake picture">
+                <div class="card" data-icon="lightbulb">
+                    <i class="fas fa-lightbulb fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="goat">
-                    <img class="card-front" src="img/goat.jpg" alt="goat picture">
+                <div class="card" data-icon="leaf">
+                    <i class="fas fa-leaf fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="goat">
-                    <img class="card-front" src="img/goat.jpg" alt="goat picture">
+                <div class="card" data-icon="leaf">
+                    <i class="fas fa-leaf fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="llama">
-                    <img class="card-front" src="img/llama.jpg" alt="cat picture">
+                <div class="card" data-icon="eye">
+                    <i class="fas fa-eye fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
-                <div class="card" data-animal="llama">
-                    <img class="card-front" src="img/llama.jpg" alt="cat picture">
+                <div class="card" data-icon="eye">
+                    <i class="fas fa-eye fa-5x card-front"></i>
+                    <img class="card-back" src="img/u.jpg" alt="UNION logo">
+                </div>
+                <div class="card" data-icon="hand-peace">
+                    <i class="fas fa-hand-peace fa-5x card-front"></i>
+                    <img class="card-back" src="img/u.jpg" alt="UNION logo">
+                </div>
+                <div class="card" data-icon="hand-peace">
+                    <i class="fas fa-hand-peace fa-5x card-front"></i>
+                    <img class="card-back" src="img/u.jpg" alt="UNION logo">
+                </div>
+                <div class="card" data-icon="guitar">
+                    <i class="fas fa-guitar fa-5x card-front"></i>
+                    <img class="card-back" src="img/u.jpg" alt="UNION logo">
+                </div>
+                <div class="card" data-icon="guitar">
+                    <i class="fas fa-guitar fa-5x card-front"></i>
                     <img class="card-back" src="img/u.jpg" alt="UNION logo">
                 </div>
             </div>
