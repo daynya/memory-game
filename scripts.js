@@ -103,9 +103,8 @@ function updateMatchColor() {
     let firstMatch = firstCard;
     let secondMatch = secondCard;
     if (activePlayer === 0) {
-
         // The Timeout function here is to allow the second card to 
-        //finish displaying before changing color.
+        // finish displaying before changing color.
         setTimeout(() => {
             firstMatch.classList.add('blue');
             secondMatch.classList.add('blue');
@@ -124,7 +123,6 @@ function updateMatchColor() {
  */
 function checkForWin() {
     if (scores[0] + scores[1] == 8) {
-
         // The Timeout function here is to allow the cards to finish
         // flipping and updating color before showing the winner.
         setTimeout(() => {
@@ -265,8 +263,8 @@ function resetGame() {
 
     lockBoard = true;
     
-    // The Timeout function here is to allow the cards to finish shuffling
-    // before becoming clickable. The board stays locked while shuffling.
+    // The Timeout function here is to allow the cards to finish flipping
+    // over before shuffling.
     setTimeout(() => {
         shuffleCards();
         lockBoard = false;
