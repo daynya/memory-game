@@ -1,3 +1,23 @@
+/**
+ * JavaScript Memory Game
+ *  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Rules:
+    Alternating turns between a red and a blue player.
+    Ability to start a new game.
+    At the end of the game declare a winner.
+    Follow Game Rules.
+        Mix up the cards.
+        Lay them in rows, face down.
+        Turn over any two cards.
+        If the two cards match, keep them.
+        If they don't match, turn them back over.
+        Remember what was on each card and where it was.
+        Watch and remember during the other player's turn.
+        The game is over when all the cards have been matched.
+        The player with the most matches wins.
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ */
+
 const cards = document.querySelectorAll('.card');
 
 let secondFlip = false;
@@ -6,37 +26,54 @@ let firstCard, secondCard;
 let scores = [0,0];
 let activePlayer = 0;
 
+/**
+ * flipCard is a function that is called every time a card is clicked.
+ * It designates the first and second cards, and prevents further cards
+ * from being clicked during the turn.
+ */
 function flipCard() {
-    //if the cards are flipping back over, don't allow another click 
+    // If the cards are flipping back over, don't allow another click.
     if (lockBoard) return;
 
-    //if the first card is clicked again, don't do anything
+    // If the first card is clicked a second time, don't do anything.
     if (this === firstCard) return; 
 
-    //if neither of the above are true, flip card over
+    // If neither of the above are true, flip card over.
     this.classList.add('flip');
 
-    //if a card hasn't already been turned over, this is first turn
+    // If a card hasn't already been turned over, this is first card.
     if (!secondFlip) {
-        //since this is the first card flipped, update game state
-        //so that the next card will be the second card flipped
+        // Since this is the first card flipped, update game state
+        // so that the next card will be the second card flipped.
         secondFlip = true;
-        //update game state to record card flipped as first card
+        // Update game state to record card flipped as first card.
         firstCard = this;
 
     } else {
-        //if it's not the first card flipped, record as second card flipped
+        // If it's not the first card flipped, record as second card 
+        // flipped, check for a match and a win.
         secondCard = this;
         checkForMatch();
         checkForWin();
     }
 }
 
+/**
+ * checkForMatch tests both flipped cards' datasets to see if they are 
+ * the same (a match). If they are, they will stay flipped and be 
+ * unclickable. The player gets a point, and the cards turn the player's 
+ * color. The first Timeout function here is to allow the scoreboard to 
+ * be updated before updating whose turn it is next. The second Timeout 
+ * here is to allow the cards to finish flippingback over before changing 
+ * players.
+ */
 function checkForMatch() {
-    //if the dataset matches on both cards, remove event listener to prevent cards from being clicked again
     let isMatch = firstCard.dataset.icon === secondCard.dataset.icon;
 
-    //if the cards match, keep them flipped, if they don't, flip back over
+    // If the cards match, keep them flipped, if they don't, flip back
+    // over. If the dataset matches on both cards, remove event listener 
+    // to prevent cards from being clicked again
+
     if (isMatch) {
         updateMatchColor();
         disableCards(); 
@@ -52,7 +89,15 @@ function checkForMatch() {
     }
 }
 
+/**
+ * updateMatchColor sets the color of the flipped cards to reflect the 
+ * player who made the match.The Timeout function here is to allow the 
+ * second card to finish displaying before changing color.
+ */
 function updateMatchColor() {
+    // firstMatch and secondMatch are set to hold the values of firstCard
+    // and secondCard for the Timeout functions, because resetTurn is 
+    // called before the Timeout executes.
     let firstMatch = firstCard;
     let secondMatch = secondCard;
     if (activePlayer === 0) {
@@ -68,6 +113,12 @@ function updateMatchColor() {
     }
 }
 
+/**
+ * checkForWin compares the players scores to see who had more matches, 
+ * once all 8 pairs are matched. The Timeout function here is to allow 
+ * the cards to finish flipping and updating color before showing the 
+ * winner.
+ */
 function checkForWin() {
     if (scores[0] + scores[1] == 8) {
         setTimeout(() => {
@@ -76,6 +127,12 @@ function checkForWin() {
     }
 }
 
+/**
+ * updateWinner swaps the visibility of the scoreboard for the winner 
+ * panel. The style and content are populated based on who won the game.
+ * The Timeout function here is to allow the message to post briefly
+ *  before resetting the game.
+ */
 function updateWinner() {
     if (scores[0] > scores[1]) {
         document.getElementById('scoreboard').style.display = 'none';
@@ -92,22 +149,36 @@ function updateWinner() {
         document.getElementById('winner-alert').style.display = 'block';
         document.getElementById('winner-alert').textContent = 'TIE GAME, TRY AGAIN!';
     }
+    setTimeout(() => {
+        resetGame();
+    }, 1500);
 }
 
+/**
+ * updateScore adds a point to the active player (called only when
+ * there is a match).
+ */
 function updateScore() {
     scores[activePlayer] = scores[activePlayer] + 1;
 }
 
+/**
+ * updateScoreboard populates the scoreboard with the point from 
+ * updateScore.
+ */
 function updateScoreboard() {
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 }
 
+/**
+ * nextPlayer switches the active player status to the other player
+ * (called when there is no match).
+ */
 function nextPlayer() {
     if (activePlayer === 0) {
         activePlayer = 1;
         document.querySelector('.player-0-panel').classList.toggle('active');
         document.querySelector('.player-1-panel').classList.toggle('active');
-
     } else {
         activePlayer = 0;
         document.querySelector('.player-0-panel').classList.toggle('active');
@@ -115,8 +186,10 @@ function nextPlayer() {
     }
 }
 
-//if the cards are a match, then remove the click listener and the flip card function
-//so that they can't be clicked again
+/**
+ * disableCards removes the click listener, so that these matched cards
+ * cannot be clicked again. The cards are reset for the next turn.
+ */
 function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
@@ -124,11 +197,14 @@ function disableCards() {
     resetTurn();
 }
 
+/**
+ * unflipCards flips the cards back over when they are not a match.
+ * The Timeout function here is to allow the second card to finish 
+ * displaying before flipping back over.
+ */
 function unflipCards() {
-    //prevents new cards from being clicked while current cards are flipping back over
     lockBoard = true;
 
-    //gives time to view cards that aren't a match before flipping back over
     setTimeout(() => {
         firstCard.classList.remove('flip');
         secondCard.classList.remove('flip');
@@ -137,7 +213,10 @@ function unflipCards() {
     }, 1500);
 }
 
-//resets game state for next turn
+/**
+ * resetTurn clears the classes from the cards that aren't matches, 
+ * and allows a new first card to be clicked.
+ */
 function resetTurn() {
     secondFlip = false;
     lockBoard = false;
@@ -145,15 +224,21 @@ function resetTurn() {
     secondCard = null;
 }
 
+/**
+ * shuffleCards randomizes the order of the elements in the cards array.
+ */
 function shuffleCards() {
     cards.forEach(card => {
         let randomPos = Math.floor(Math.random() * 16);
-        //want to assign each card an integer between 0-11, use random to randomize, use floor to create integer from random number (order property needs integer)
         card.style.order = randomPos;
-        console.log(randomPos);
     });
 }
 
+/**
+ * resetGame clears the classes from the cards, resets the scores, 
+ * and unlocks the cards for play. The Timeout function here is to 
+ * allow the cards to finish shuffling before becoming clickable.
+ */
 function resetGame() {
     secondFlip = false;
     lockBoard = false;
@@ -162,7 +247,6 @@ function resetGame() {
     scores = [0,0];
     activePlayer = 0;
 
-    cards.forEach(card => console.log(card));
     cards.forEach(card => card.addEventListener('click', flipCard));
     cards.forEach(card => card.classList.remove('flip'));
 
@@ -174,10 +258,15 @@ function resetGame() {
 
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
+    document.getElementById('scoreboard').style.display = '';
+    document.getElementById('winner-alert').style.display = 'none';
 }
 
-//Immediately invoked functon expression 
+/**
+ * startGame resets the game upon page load, as well as when the 
+ * New Game button is clicked.
+ */
 (function startGame() {
     resetGame();
     document.getElementById('new-game').addEventListener('click', resetGame);
-})();
+})(); 
