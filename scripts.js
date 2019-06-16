@@ -33,12 +33,12 @@ function flipCard() {
 }
 
 function checkForMatch() {
-    //do the cards match?
     //if the dataset matches on both cards, remove event listener to prevent cards from being clicked again
     let isMatch = firstCard.dataset.icon === secondCard.dataset.icon;
 
     //if the cards match, keep them flipped, if they don't, flip back over
     if (isMatch) {
+        updateMatchColor();
         disableCards(); 
         updateScore();
         setTimeout(() => {
@@ -52,16 +52,37 @@ function checkForMatch() {
     }
 }
 
+function updateMatchColor() {
+    let firstMatch = firstCard;
+    let secondMatch = secondCard;
+    if (activePlayer === 0) {
+        setTimeout(() => {
+            firstMatch.classList.add('blue');
+            secondMatch.classList.add('blue');
+        }, 1000);
+    } else {
+        setTimeout(() => {
+            firstMatch.classList.add('red');
+            secondMatch.classList.add('red');
+        }, 1000);
+    }
+}
+
 function checkForWin() {
-    console.log(scores[0] + scores[1]);
     if (scores[0] + scores[1] == 8) {
-        if (scores[0] > scores[1]) {
-            document.querySelector('.winner').textContent = 'Blue Player is victorious!';
-        } else if (scores[0] < scores[1]) {
-            document.querySelector('.winner').textContent = 'Red Player is victorious!';
-        } else {
-            document.querySelector('.winner').textContent = 'It is a tie. Try again!';
-        }
+        setTimeout(() => {
+            updateWinner();
+        }, 1000);
+    }
+}
+
+function updateWinner() {
+    if (scores[0] > scores[1]) {
+        document.querySelector('.winner').textContent = 'Blue Player is victorious!';
+    } else if (scores[0] < scores[1]) {
+        document.querySelector('.winner').textContent = 'Red Player is victorious!';
+    } else {
+        document.querySelector('.winner').textContent = 'It is a tie. Try again!';
     }
 }
 

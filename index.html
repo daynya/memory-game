@@ -9,16 +9,17 @@
         <script src="https://kit.fontawesome.com/ee5f2ca734.js"></script>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h1>MEMORY GAME</h1>
-                </div>
+        <div class="col sidebar">
+                <h1 class="game-title">MEMORY GAME</h1>
             </div>
+        <div class="container-fluid">
             <div class="row player-panel">
                 <div class="col player-0-panel active">
                     <div class="player-name" id="player-0">BLUE PLAYER</div>
                     <div class="player-score" id="score-0">0</div>
+                </div>
+                <div class="col">
+                    <button id="new-game">NEW GAME</button>
                 </div>
                 <div class="col player-1-panel">
                     <div class="player-name" id="player-1">RED PLAYER</div>
@@ -27,15 +28,9 @@
             </div>
             <div class="row player-panel">
                 <div class="col">
-                    <button id="new-game">NEW GAME</button>
-                </div>
-            </div>
-            <div class="row player-panel">
-                <div class="col">
                     <div class="winner"></div>
                 </div>
             </div>
-
             <div class="row game-board">
                 <div class="card" data-icon="cat">
                     <i class="fas fa-cat fa-5x card-front"></i>

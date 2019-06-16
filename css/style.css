@@ -17,7 +17,7 @@ h1 {
 }
 
 .player-panel {
-    font-size: 1em;
+    font-size: .9em;
     font-family: 'Open Sans', sans-serif;
     font-weight: 700;
     letter-spacing: .5em;
@@ -34,9 +34,16 @@ h1 {
     color: red;
 }
 
+.player-0-panel,
+.player-1-panel {
+    margin-top: 20px;
+    border: 1px solid rgb(246, 246, 246);
+}
+
 .player-0-panel.active,
 .player-1-panel.active {
-    background-color: rgb(214, 214, 214);
+    background-color: white;
+    border: 1px solid #111;
     transition: .5s;
 }
 
@@ -45,11 +52,6 @@ h1 {
     letter-spacing: 0;
     padding: 15px;
     font-size: 1em;
-}
-
-#new-game {
-    padding: 5px;
-    margin: 5px;
 }
 
 .game-board {
@@ -71,7 +73,7 @@ h1 {
     transform-style: preserve-3d;
     transition: transform .5s;
     transition: .5s;
-    border: 1px solid red;
+    border: 1px solid #111;
 }
 
 .card:active {
@@ -97,12 +99,50 @@ h1 {
 
 .card-front {
     height: 150.5px;
-    background-color: red;
+    background-color: #111;
     color: white;
     transform: rotateY(180deg); 
 }
 
 .card-front.fas {
-    line-height: 1.3
+    line-height: 1.3;
 }
 
+.blue i {
+    background-color: #044497;
+}
+
+.red i {
+    background-color: red;
+}
+
+.sidebar {
+    width: 100px;
+    height: 100vh;
+    background-color: #111;
+}
+
+.game-title {
+    color: rgb(214, 214, 214);
+    font-size: 1em;
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: .5em;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    padding: 300px 20px;
+}
+
+#new-game {
+    background-color: white;
+    color: #111;
+    border: solid 1px #111;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 1em;
+    transition: .5s;
+}
+
+#new-game:hover {
+    background-color: #111;
+    color: white;
+}
