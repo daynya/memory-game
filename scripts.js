@@ -78,11 +78,19 @@ function checkForWin() {
 
 function updateWinner() {
     if (scores[0] > scores[1]) {
-        document.querySelector('.winner').textContent = 'Blue Player is victorious!';
+        document.getElementById('scoreboard').style.display = 'none';
+        document.getElementById('winner-alert').style.display = 'block';
+        document.getElementById('winner-alert').style.color = '#044497';
+        document.getElementById('winner-alert').textContent = 'BLUE WINS!';
     } else if (scores[0] < scores[1]) {
-        document.querySelector('.winner').textContent = 'Red Player is victorious!';
+        document.getElementById('scoreboard').style.display = 'none';
+        document.getElementById('winner-alert').style.display = 'block';
+        document.getElementById('winner-alert').style.color = 'red';
+        document.getElementById('winner-alert').textContent = 'RED WINS!';
     } else {
-        document.querySelector('.winner').textContent = 'It is a tie. Try again!';
+        document.getElementById('scoreboard').style.display = 'none';
+        document.getElementById('winner-alert').style.display = 'block';
+        document.getElementById('winner-alert').textContent = 'TIE GAME, TRY AGAIN!';
     }
 }
 

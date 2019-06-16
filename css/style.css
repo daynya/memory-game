@@ -23,15 +23,29 @@ h1 {
     letter-spacing: .5em;
     text-align: center;
     padding: 10px;
-    margin: 10px;
+    margin: 50px;
 }
 
 #player-0 {
     color: #044497;
+    padding-top: 10px;
 }
 
 #player-1 {
     color: red;
+    padding-top: 10px;
+}
+
+#scoreboard,
+#winner-alert {
+    height: 100px;
+}
+
+#winner-alert {
+    display: none;
+    text-align: center;
+    font-size: 1.3em;
+    padding-top: 30px;
 }
 
 .player-0-panel,
@@ -45,13 +59,6 @@ h1 {
     background-color: white;
     border: 1px solid #111;
     transition: .5s;
-}
-
-.winner {
-    font-family: 'Prata', serif;
-    letter-spacing: 0;
-    padding: 15px;
-    font-size: 1em;
 }
 
 .game-board {
@@ -137,7 +144,7 @@ h1 {
     color: #111;
     border: solid 1px #111;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: 25px;
     font-size: 1em;
     transition: .5s;
 }
